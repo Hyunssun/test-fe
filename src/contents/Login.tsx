@@ -10,23 +10,23 @@ export const Login = () => {
     password: "",
   });
 
-  useEffect(() => {
-    console.log("process.env.REACT_APP_API_KEY", process.env.REACT_APP_API_KEY);
-  }, []);
-
   const onClickLogin = async () => {
-    console.log(`input`, input);
-    // navigate("/home");
-    try {
-      //응답 성공
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_KEY}/user/all`
-      );
-      console.log(response);
-    } catch (error) {
-      //응답 실패
-      console.error(error);
-    }
+    axios
+      .post(`${process.env.REACT_APP_API_KEY}/user/login`, {
+        userid: input.id,
+        password: input.password,
+      })
+      .then((payload: any) => {
+        if (payload.data.message === "success") {
+          console.log(payload);
+          navigate("/home");
+        } else {
+          console.log(payload.data.message);
+        }
+      })
+      .catch((e: any) => {
+        console.log("연결 실패", e);
+      });
   };
 
   return (
