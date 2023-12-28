@@ -1,2 +1,3 @@
 export { Login } from "./Login";
-export { Home } from "./Home";
+export { Join } from "./Join";
+export { Main } from "./router/Main";
